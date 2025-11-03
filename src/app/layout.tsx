@@ -19,8 +19,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Elegant Flora Boutique",
-  description: "Beautiful AI-powered website creation platform",
+  title: "ATLAS - Premium Sustainable Streetwear",
+  description: "Minimalist organic cotton basics. Quality over quantity. Sustainable fashion for the conscious consumer.",
 };
 
 export default function RootLayout({
@@ -34,7 +34,8 @@ export default function RootLayout({
 
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className="antialiased"
+        style={{ fontFamily: 'var(--font-primary)' }}
       >
         <QueryProvider>
           <ZyloProvider>

@@ -1,37 +1,170 @@
-export const dynamic = 'force-dynamic'
+'use client';
 
-export default function Index() {
+import Image from 'next/image';
+import Link from 'next/link';
+import { Header } from '@/components/layout/Header';
+import { Footer } from '@/components/layout/Footer';
+import { ProductCard } from '@/components/products/ProductCard';
+import { getHeroProduct, getFeaturedProducts } from '@/lib/products';
+import { Leaf, Truck, ShieldCheck } from 'lucide-react';
+
+export default function HomePage() {
+  const heroProduct = getHeroProduct();
+  const featuredProducts = getFeaturedProducts();
+
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <div className="text-center max-w-2xl px-4">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your App</h1>
-        <p className="text-xl mb-6 text-gray-600">
-          This template is configured to be absolutely lenient - builds never fail on validation errors.
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-left">
-          <div className="p-4 bg-green-50 rounded-lg border border-green-200">
-            <h3 className="font-semibold text-green-800 mb-2">✅ Always Builds</h3>
-            <ul className="text-green-700 space-y-1">
-              <li>• TypeScript errors ignored</li>
-              <li>• ESLint warnings ignored</li>
-              <li>• Global error boundaries</li>
-              <li>• Asset type safety</li>
-            </ul>
+    <div className="min-h-screen flex flex-col">
+      <Header />
+
+      <main className="flex-1 pt-16">
+        {/* Hero Section */}
+        <section className="bg-gray-100 py-20">
+          <div className="container mx-auto px-6">
+            <div className="grid md:grid-cols-2 gap-12 items-center">
+              {/* Hero Text */}
+              <div className="space-y-6">
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold uppercase tracking-tight leading-tight">
+                  ELEVATE YOUR
+                  <br />
+                  EVERYDAY
+                </h1>
+
+                <p className="text-base text-gray-700 max-w-lg">
+                  Premium organic cotton basics. Limited first drop of 100 pieces.
+                </p>
+
+                <Link
+                  href="/shop"
+                  className="inline-block px-8 py-3 bg-black text-white text-xs font-semibold tracking-widest uppercase rounded-sm hover:bg-gray-900 transition-colors"
+                >
+                  LIMITED FIRST DROP - $59
+                </Link>
+
+                <div className="text-sm text-gray-600">
+                  ✓ Free shipping over $50 · Limited availability
+                </div>
+              </div>
+
+              {/* Hero Image */}
+              <div className="relative aspect-[4/3] bg-gray-200 rounded-lg overflow-hidden">
+                <Image
+                  src={heroProduct.image}
+                  alt={heroProduct.name}
+                  fill
+                  className="object-cover"
+                  priority
+                />
+              </div>
+            </div>
           </div>
-          <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
-            <h3 className="font-semibold text-blue-800 mb-2">🚀 Production Ready</h3>
-            <ul className="text-blue-700 space-y-1">
-              <li>• Next.js 15.5.2 App Router</li>
-              <li>• Vercel optimized</li>
-              <li>• SSR/SEO friendly</li>
-              <li>• Browser API protection</li>
-            </ul>
+        </section>
+
+        {/* Quality & Sustainability */}
+        <section className="py-16 bg-white">
+          <div className="container mx-auto px-6">
+            <h6 className="text-xs font-semibold tracking-widest uppercase text-center mb-12">
+              QUALITY & SUSTAINABILITY
+            </h6>
+
+            <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+              <div className="text-center">
+                <div className="w-12 h-12 mx-auto mb-4 flex items-center justify-center bg-gray-100 rounded-full">
+                  <Leaf className="w-6 h-6" />
+                </div>
+                <h5 className="text-sm font-semibold mb-2 uppercase">100% Organic</h5>
+                <p className="text-sm text-gray-600">
+                  Premium organic cotton, sustainably sourced
+                </p>
+              </div>
+
+              <div className="text-center">
+                <div className="w-12 h-12 mx-auto mb-4 flex items-center justify-center bg-gray-100 rounded-full">
+                  <Truck className="w-6 h-6" />
+                </div>
+                <h5 className="text-sm font-semibold mb-2 uppercase">Free Shipping</h5>
+                <p className="text-sm text-gray-600">
+                  On all orders over $50
+                </p>
+              </div>
+
+              <div className="text-center">
+                <div className="w-12 h-12 mx-auto mb-4 flex items-center justify-center bg-gray-100 rounded-full">
+                  <ShieldCheck className="w-6 h-6" />
+                </div>
+                <h5 className="text-sm font-semibold mb-2 uppercase">Quality Guarantee</h5>
+                <p className="text-sm text-gray-600">
+                  Built to last, backed by our guarantee
+                </p>
+              </div>
+            </div>
           </div>
-        </div>
-        <p className="mt-6 text-gray-500">
-          Start building your amazing project here! This template will never fail builds due to validation errors.
-        </p>
-      </div>
+        </section>
+
+        {/* Featured Products */}
+        <section className="py-20 bg-gray-50">
+          <div className="container mx-auto px-6">
+            <h6 className="text-xs font-semibold tracking-widest uppercase text-center mb-12">
+              FEATURED COLLECTION
+            </h6>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+              {featuredProducts.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+
+            <div className="text-center mt-12">
+              <Link
+                href="/shop"
+                className="inline-block px-8 py-3 border-2 border-black text-black text-xs font-semibold tracking-widest uppercase rounded-sm hover:bg-black hover:text-white transition-all"
+              >
+                VIEW ALL PRODUCTS
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* Social Proof */}
+        <section className="py-16 bg-white">
+          <div className="container mx-auto px-6">
+            <h6 className="text-xs font-semibold tracking-widest uppercase text-center mb-8">
+              LOVED BY THOUSANDS
+            </h6>
+
+            <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+              <div className="bg-gray-50 p-6 rounded">
+                <div className="flex gap-1 mb-3">
+                  {[...Array(5)].map((_, i) => (
+                    <span key={i} className="text-yellow-500">★</span>
+                  ))}
+                </div>
+                <p className="text-sm italic text-gray-700 mb-3">
+                  &quot;Best hoodie I have ever owned - so soft and the fit is perfect&quot;
+                </p>
+                <p className="text-xs font-semibold uppercase tracking-wide">
+                  — Sarah M.
+                </p>
+              </div>
+
+              <div className="bg-gray-50 p-6 rounded">
+                <div className="flex gap-1 mb-3">
+                  {[...Array(5)].map((_, i) => (
+                    <span key={i} className="text-yellow-500">★</span>
+                  ))}
+                </div>
+                <p className="text-sm italic text-gray-700 mb-3">
+                  &quot;Finally found sustainable basics that actually look good&quot;
+                </p>
+                <p className="text-xs font-semibold uppercase tracking-wide">
+                  — Jordan K.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <Footer />
     </div>
   );
 }
